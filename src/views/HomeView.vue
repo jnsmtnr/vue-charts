@@ -1,18 +1,13 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <router-link to="/column">Column chart</router-link>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import {defineComponent} from '@vue/composition-api';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'HomeView',
-  components: {
-    HelloWorld,
-  },
 });
 </script>

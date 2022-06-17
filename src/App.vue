@@ -1,12 +1,24 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav v-if="showNavbar">
+      <router-link to="/column">Column chart</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+
+export default defineComponent({
+  computed: {
+    showNavbar() {
+      return this.$route.name !== 'home'
+    }
+  },
+})
+</script>
+
 
 <style>
 #app {
