@@ -115,8 +115,11 @@ export default defineComponent({
     #column {
         width: min-content;
         margin: 0 auto;
-        border: solid 1px black;
         padding: 1em;
+    }
+
+    svg {
+        border: 1px solid black;
     }
 
     .data-row {
