@@ -1,26 +1,26 @@
 <template>
     <div>
-        <div id="column">
-            <svg :width="WIDTH" :height="HEIGHT">
+        <div id="bar">
+            <svg :width="WIDTH" :height="height">
                 <g
-                    v-for="(column, i) in columns"
+                    v-for="(bar, i) in bars"
                     :key="i"
                 >
                     <rect
-                        :x="column.x"
-                        :y="column.y"
-                        :width="column.width" 
-                        :height="column.height" 
+                        :x="bar.x"
+                        :y="bar.y"
+                        :width="bar.width" 
+                        :height="bar.height" 
                         fill="red"
                     />
                     <text
-                        :x="column.x + column.width / 2"
-                        :y="column.y + column.height / 2"
+                        :x="bar.x + bar.width / 2"
+                        :y="bar.y + bar.height / 2"
                         text-anchor="middle"
                         alignment-baseline="central"
                         fill="white"
                     >
-                        {{ column.label }}
+                        {{ bar.label }}
                     </text>
                 </g>
             </svg>
@@ -30,7 +30,7 @@
                 <input v-model="data[i].label"> <button @click="dec(i)">-</button> {{ d.value }} <button @click="inc(i)">+</button> <button @click="del(i)">delete</button>
             </div>
         </div>
-        <button @click="add">Add new column</button>
+        <button @click="add">Add new bar</button>
     </div>
 </template>
 
@@ -40,7 +40,7 @@ import { defineComponent, ref, computed } from '@vue/composition-api'
 export default defineComponent({
     setup() {
         const WIDTH = 800;
-        const HEIGHT = 300;
+        const height = computed(() => Math.max(data.value.length * 100, 300));
 
         const data = ref([
             {
@@ -57,20 +57,20 @@ export default defineComponent({
             },
         ])
 
-        const columns = computed(() => {
+        const bars = computed(() => {
             const maxValue = Math.max(...data.value.map(d => d.value));
 
-            const columnWidth = WIDTH / (data.value.length * 2);
+            const barHeight = height.value / (data.value.length * 2);
 
             return data.value.map((d, i) => {
-                const columnHeight = HEIGHT * d.value / maxValue
+                const barWidth = WIDTH * d.value / maxValue
 
                 return {
                     label: d.label,
-                    x: columnWidth * (0.5 + 2 * i),
-                    y: HEIGHT - columnHeight,
-                    width: columnWidth,
-                    height: columnHeight,
+                    x: 0,
+                    y: barHeight * (0.5 + 2 * i),
+                    width: barWidth,
+                    height: barHeight,
                 }
             });
         })
@@ -105,7 +105,7 @@ export default defineComponent({
         }
 
         return { 
-            WIDTH, HEIGHT, data, columns, 
+            WIDTH, height, data, bars, 
             inc, dec, del, add
         }
     },
@@ -113,7 +113,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    #column {
+    #bar {
         width: min-content;
         margin: 0 auto;
         padding: 1em;

@@ -2,6 +2,8 @@
   <div id="app">
     <nav v-if="showNavbar">
       <router-link to="/column">Column chart</router-link>
+      <router-link to="/bar">Bar chart</router-link>
+      <router-link to="/pie">Pie chart</router-link>
     </nav>
     <router-view/>
   </div>
@@ -21,6 +23,11 @@ export default defineComponent({
 
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -36,6 +43,7 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  padding: 5px;
 }
 
 nav a.router-link-exact-active {
